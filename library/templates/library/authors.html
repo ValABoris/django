@@ -1,0 +1,48 @@
+{% extends 'library/base.html' %}
+{% block title %}Authors{% endblock %}
+{% block add %}
+<li class="">
+    <a href="{% url 'library:author-add' %}">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add Author
+    </a>
+</li>
+{% endblock %}
+
+{% block body %}
+    {% if all_authors %}
+        <h1 class="headings" style="padding-left: 10%;">List of Authors:</h1>
+        <ul class="list-group">
+            {% for author in all_authors %}
+            <li class="list-group-item clearfix" style="background: rgba(255, 255, 255, .7);">
+
+                <!-- Details -->
+                <div style="float: left">
+                <a href="{% url 'library:author-details' author.id %}">{{ author.first_name }} {{ author.last_name }}</a>
+                </div>
+
+                <div class="pull-right">
+                    <div class="btns">
+                    <a href="{% url 'library:author-update' author.id %}" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                    </div>
+
+                    <!-- Delete -->
+                    <div class="btns">
+                    <form action="{% url 'library:author-delete' author.id %}" method="post" >
+                        {% csrf_token %}
+                        <input type="hidden" name="author_id" value="{{ author.id }}"/>
+                        <button type="submit" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove"></span> Delete
+                        </button>
+                    </form>
+                    </div>
+
+                </div>
+
+            </li>
+
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h2>There're no authors to display.</h2>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'library/base.html' %}
+{% block title %}Author Details{% endblock %}
+
+{% block body %}
+
+    <div class="details lib_form">
+
+        <h1 class="headings">{{ author.first_name  }} {{ author.last_name }}</h1>
+        <div style="margin-left: 5em">
+            <h1 class="form_heading" style="margin-left: 0em">Books:</h1>
+            <ul class="list-group">
+            {% for book in author.book_set.all %}
+                <li class="list-group-item">
+                    <a href="{% url 'library:detail' book.id %}">{{ book.title }}</a>
+                </li>
+            {% endfor %}
+            </ul>
+        <div>
+
+        <div class="pull-right">
+            <a href="{% url 'library:book-add' %}" class="btns btn btn-primary">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add Book
+            </a>
+
+            <div class="btns">
+                <a href="{% url 'library:author-update' author.id %}" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+            </div>
+            <!-- Delete -->
+            <div class="btns">
+                <form action="{% url 'library:author-delete' author.id %}" method="post" >
+                    {% csrf_token %}
+                    <input type="hidden" name="author_id" value="{{ author.id }}"/>
+                    <button type="submit" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove"></span> Delete
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

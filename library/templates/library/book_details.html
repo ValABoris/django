@@ -1,0 +1,41 @@
+{% extends 'library/base.html' %}
+{% block title %}Book Details{% endblock %}
+
+{% block body %}
+    <div class="container-fluid lib_form details centered">
+        <div class="row">
+            <div class="col-sm-3">
+                <img class="img-responsive" style="padding-left: 1em; padding-right: 1em;" src="{{ book.cover.url }}">
+            </div>
+            <div class="col-sm-9">
+
+                <h1 class="headings">{{ book.title }}</h1>
+
+                <h3>by <a href="{% url 'library:author-details' book.author_id %}">{{ book.author.first_name }} {{ book.author.last_name }}</a></h3>
+
+                <p><strong>Genre:</strong> {{ book.genre }}</p>
+
+                <span class="pull-right pull-bottom">
+
+                    <!-- Edit -->
+                    <form class="btns" action="{% url 'library:book-update' book.id %}" method="put" >
+                        <button class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                    </form>
+
+                    <span style="">
+                    <!-- Delete -->
+                    <form class="btns" action="{% url 'library:book-delete' book.id %}" method="post" >
+                        {% csrf_token %}
+                        <input type="hidden" name="book_id" value="{{ book.id }}"/>
+                        <button type="submit" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove"></span> Delete
+                        </button>
+                    </form>
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

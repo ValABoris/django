@@ -1,0 +1,43 @@
+{% extends 'library/base.html' %}
+{% block title %}Books{% endblock %}
+{% block add %}
+<li class="">
+    <a href="{% url 'library:book-add' %}">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add Book
+    </a>
+</li>
+{% endblock %}
+
+{% block body %}
+    {% if all_books %}
+        <h1 class="headings" style="padding-left: 10%;">List of Books:</h1>
+        <ul class="list-group">
+            {% for book in all_books %}
+            <li class="list-group-item clearfix" style="background: rgba(255, 255, 255, .7);">
+
+                <!-- Details -->
+                <a href="{% url 'library:detail' book.id %}">{{ book.title }} by {{ book.author.first_name }} {{ book.author.last_name }}</a>
+
+
+                <span class="pull-right">
+                    <form class="btns" action="{% url 'library:book-update' book.id %}" method="put" >
+                        <button class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                    </form>
+
+                    <!-- Delete -->
+                    <form class="btns" action="{% url 'library:book-delete' book.id %}" method="post" >
+                        {% csrf_token %}
+                        <input type="hidden" name="book_id" value="{{ book.id }}"/>
+                        <button type="submit" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove"></span> Delete
+                        </button>
+                    </form>
+                </span>
+
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h2>There're no books to display.</h2>
+    {% endif %}
+{% endblock %}

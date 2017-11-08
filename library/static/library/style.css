@@ -1,0 +1,59 @@
+body {
+    background: white url("images/background.jpg");
+    background-repeat: repeat;
+}
+
+.headings {
+    font-family: 'Antic+Didone', serif;
+    font-size: 5em;
+     word-wrap: break-word;
+     -webkit-hyphens: auto;
+     -moz-hyphens: auto;
+     -ms-hyphens: auto;
+     -o-hyphens: auto;
+     hyphens: auto;
+}
+
+.form_heading {
+    margin-left: 2em;
+    font-family: 'Antic+Didone', serif;
+    border-bottom: 1px solid #000;
+}
+
+.lib_form {
+    background: rgba(255, 255, 255, .7);
+    padding-top: 4em;
+    padding-bottom: 3em;
+}
+
+.details {
+    margin: auto;
+    padding-left: 5%;
+    max-width: 1000px;
+}
+
+.navbar {
+    border-radius: 0;
+}
+
+.list-group {
+    margin: auto;
+    max-width: 1500px;
+    /*margin-left: 10%;*/
+    /*margin-right: 10%;*/
+}
+
+.btns {
+    float: left;
+    margin-right: 1em;
+}
+
+.list-group-item {
+    font-size: 1.3em;
+}
+
+.centered {
+    margin: auto;
+    max-width: 60%;
+    border-style: double;
+}
